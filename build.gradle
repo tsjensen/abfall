@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation 'net.sf.biweekly:biweekly:0.6.3'
+    implementation 'org.apache.poi:poi:4.1.0'
+    implementation 'org.apache.poi:poi-ooxml:4.1.0'
+    implementation 'org.apache.poi:ooxml-schemas:1.4'
+
+    testImplementation 'junit:junit:4.12'
+}
+
+mainClassName = 'com.thomasjensen.abfallkalender.Main'

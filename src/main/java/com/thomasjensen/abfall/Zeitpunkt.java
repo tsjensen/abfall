@@ -1,4 +1,4 @@
-package com.thomasjensen.abfallkalender;
+package com.thomasjensen.abfall;
 
 /**
  * TODO Purpose of this type, in one sentence, ending with a dot. <p>Further, arbitrarily elaborate description. HTML

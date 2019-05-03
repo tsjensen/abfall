@@ -1,4 +1,4 @@
-package com.thomasjensen.abfallkalender;
+package com.thomasjensen.abfall;
 
 /**
  * Trash category. Order indicates importance for placement on chart.

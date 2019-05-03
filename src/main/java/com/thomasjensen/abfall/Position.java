@@ -1,4 +1,4 @@
-package com.thomasjensen.abfallkalender;
+package com.thomasjensen.abfall;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

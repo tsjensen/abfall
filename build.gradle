@@ -18,7 +18,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
-mainClassName = 'com.thomasjensen.abfallkalender.Main'
+mainClassName = 'com.thomasjensen.abfall.Main'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'

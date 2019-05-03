@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'idea'
 }
 
 repositories {
@@ -12,8 +13,21 @@ dependencies {
     implementation 'org.apache.poi:poi:4.1.0'
     implementation 'org.apache.poi:poi-ooxml:4.1.0'
     implementation 'org.apache.poi:ooxml-schemas:1.4'
+    implementation 'commons-cli:commons-cli:1.4'
 
     testImplementation 'junit:junit:4.12'
 }
 
 mainClassName = 'com.thomasjensen.abfallkalender.Main'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation' << '-proc:none'
+}
+
+idea.module {
+    downloadSources = true;
+    downloadJavadoc = true;
+    excludeDirs += file('.idea')
+    excludeDirs += file('_support')
+}

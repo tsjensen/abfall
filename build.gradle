@@ -14,8 +14,8 @@ dependencies {
     implementation 'org.apache.poi:poi-ooxml:4.1.0'
     implementation 'org.apache.poi:ooxml-schemas:1.4'
     implementation 'commons-cli:commons-cli:1.4'
-
-    testImplementation 'junit:junit:4.12'
+    implementation 'org.apache.logging.log4j:log4j-api:2.11.2'
+    implementation 'org.apache.logging.log4j:log4j-core:2.11.2'
 }
 
 mainClassName = 'com.thomasjensen.abfall.Main'
@@ -30,4 +30,8 @@ idea.module {
     downloadJavadoc = true;
     excludeDirs += file('.idea')
     excludeDirs += file('_support')
+}
+
+tasks.installDist {
+    destinationDir = new File(buildDir, 'distributions/unpacked')
 }

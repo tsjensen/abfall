@@ -50,7 +50,7 @@ public class CellStyleFactory
         result.setVerticalAlignment(VerticalAlignment.CENTER);
         result.setFont(boldCalibri(14));
         if (pPos.isOddMonth()) {
-            withOddBackground(result);
+            setOddBackground(result);
         }
         if (pPos.isFirstRowOfDay()) {
             result.setBorderTop(pPos.isJanuary() ? BorderStyle.MEDIUM : BorderStyle.THIN);
@@ -78,32 +78,10 @@ public class CellStyleFactory
     public XSSFCellStyle dayHeading(final Position pPos, final Art pCategory)
     {
         final XSSFCellStyle result = alignCenter(workbook.createCellStyle());
-        switch (pCategory) {
-            case Bio:
-                result.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-                result.setFillForegroundColor(new XSSFColor(new Color(196, 215, 155), DEFAULT_COLOR_MAP));
-                break;
-            case Papier:
-                result.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-                result.setFillForegroundColor(new XSSFColor(new Color(149, 179, 215), DEFAULT_COLOR_MAP));
-                break;
-            case GelberSack:
-                result.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-                result.setFillForegroundColor(new XSSFColor(new Color(255, 255, 102), DEFAULT_COLOR_MAP));
-                break;
-            case Rest:
-                result.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-                result.setFillForegroundColor(new XSSFColor(new Color(207, 121, 119), DEFAULT_COLOR_MAP));
-                break;
-            case Gartenabfall:
-                result.setFillPattern(FillPatternType.THIN_FORWARD_DIAG);
-                result.setFillForegroundColor(new XSSFColor(new Color(0, 176, 80), DEFAULT_COLOR_MAP));
-                break;
-            default: // Schadstoffmobil
-                result.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-                result.setFillForegroundColor(new XSSFColor(new Color(250, 192, 146), DEFAULT_COLOR_MAP));
-                break;
-        }
+
+        result.setFillPattern(pCategory == Art.Gartenabfall
+            ? FillPatternType.THIN_FORWARD_DIAG : FillPatternType.SOLID_FOREGROUND);
+        result.setFillForegroundColor(new XSSFColor(pCategory.getColor(), DEFAULT_COLOR_MAP));
 
         result.setBorderTop(pPos.isJanuary() ? BorderStyle.MEDIUM : BorderStyle.THIN);
         if (pPos.isDay1()) {
@@ -145,42 +123,34 @@ public class CellStyleFactory
         }
 
         result.setFillBackgroundColor(new XSSFColor(Color.WHITE, DEFAULT_COLOR_MAP));
-        result.setFillForegroundColor(new XSSFColor(new Color(0, 176, 80), DEFAULT_COLOR_MAP));
+        result.setFillForegroundColor(new XSSFColor(Art.Gartenabfall.getColor(), DEFAULT_COLOR_MAP));
         result.setFillPattern(FillPatternType.THIN_FORWARD_DIAG);
         final CTFill ctFill = workbook.getStylesSource().getFillAt((int) result.getCoreXf().getFillId()).getCTFill();
         ctFill.unsetPatternFill();
 
         if (pCategory == Art.Gartenabfall) {
             final CTPatternFill ctPatternFill = ctFill.addNewPatternFill();
-            ctPatternFill.addNewFgColor().setRgb(toBytes(new Color(0, 176, 80)));
+            ctPatternFill.addNewFgColor().setRgb(toBytes(pCategory.getColor()));
             ctPatternFill.setPatternType(STPatternType.LIGHT_UP);
             return result;
         }
 
         byte[] rgbInner;
-        byte[] rgbOuter;
         switch (pCategory) {
             case Bio:
                 rgbInner = toBytes(new Color(235, 241, 222));
-                rgbOuter = toBytes(new Color(196, 215, 155));
                 break;
             case Papier:
                 rgbInner = toBytes(new Color(221, 231, 242));
-                rgbOuter = toBytes(new Color(150, 180, 216));
                 break;
             case GelberSack:
                 rgbInner = toBytes(new Color(255, 255, 204));
-                rgbOuter = toBytes(new Color(255, 255, 102));
                 break;
-            case Rest:
+            default: // Rest || Schadstoffmobil
                 rgbInner = toBytes(new Color(255, 255, 255));
-                rgbOuter = toBytes(new Color(207, 121, 119));
-                break;
-            default: // Schadstoffmobil
-                rgbInner = toBytes(new Color(255, 255, 255));
-                rgbOuter = toBytes(new Color(250, 192, 146));
                 break;
         }
+        final byte[] rgbOuter = toBytes(pCategory.getColor());
 
         final CTGradientFill ctGradientFill = ctFill.addNewGradientFill();
         ctGradientFill.setType(STGradientType.PATH);
@@ -238,9 +208,12 @@ public class CellStyleFactory
 
 
 
-    public XSSFCellStyle oddRowCentered(final Position pPos)
+    public XSSFCellStyle emptyDay(final Position pPos)
     {
-        final XSSFCellStyle result = alignCenter(withOddBackground(workbook.createCellStyle()));
+        XSSFCellStyle result = alignCenter(workbook.createCellStyle());
+        if (pPos.isOddMonth()) {
+            setOddBackground(result);
+        }
         addNormalCellBorders(pPos, result);
         return result;
     }
@@ -303,11 +276,10 @@ public class CellStyleFactory
 
 
 
-    private XSSFCellStyle withOddBackground(final XSSFCellStyle pCellStyle)
+    private void setOddBackground(final XSSFCellStyle pCellStyle)
     {
         pCellStyle.setFillForegroundColor(new XSSFColor(new Color(221, 221, 221), DEFAULT_COLOR_MAP));
         pCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        return pCellStyle;
     }
 
 

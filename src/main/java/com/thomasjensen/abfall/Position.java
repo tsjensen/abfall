@@ -14,9 +14,6 @@ public class Position
     /** calendar year */
     private final int year;
 
-    /** calendar month as number from 1-12 */
-    private final int month;
-
     /** same as {@link #month}, but as object */
     private final YearMonth monthObj;
 
@@ -27,7 +24,7 @@ public class Position
     private final int rowsPerDay;
 
     /** row within the current day (0: Heading, 1: first data cell, ...) */
-    private int dayRowIdx = -1;
+    private int dayRowIdx;
 
     private DayOfWeek dayOfWeek = null;
 
@@ -36,8 +33,7 @@ public class Position
     public Position(final int pYear, final int pMonth, final int pDayRowIdx, final int pRowsPerDay)
     {
         year = pYear;
-        month = pMonth;
-        monthObj = YearMonth.of(pYear, month);
+        monthObj = YearMonth.of(pYear, pMonth);
         dayRowIdx = pDayRowIdx;
         rowsPerDay = pRowsPerDay;
     }
@@ -48,7 +44,7 @@ public class Position
     {
         day = pDay;
         if (pDay <= monthObj.lengthOfMonth()) {
-            dayOfWeek = LocalDate.of(year, month, pDay).getDayOfWeek();
+            dayOfWeek = LocalDate.of(year, getMonthNumeric1(), pDay).getDayOfWeek();
         }
     }
 
@@ -61,9 +57,21 @@ public class Position
 
 
 
+    /**
+     * Gets the month-of-year int value.
+     * The values are numbered following the ISO-8601 standard, from 1 (January) to 12 (December).
+     * @return the month number from 1 to 12
+     */
+    public int getMonthNumeric1()
+    {
+        return getMonth().getValue();
+    }
+
+
+
     public boolean isOddMonth()
     {
-        return month % 2 == 1;
+        return getMonthNumeric1() % 2 == 1;
     }
 
 
@@ -78,6 +86,13 @@ public class Position
     public boolean isDecember()
     {
         return monthObj.getMonth() == Month.DECEMBER;
+    }
+
+
+
+    public int getDayRowIdx()
+    {
+        return dayRowIdx;
     }
 
 

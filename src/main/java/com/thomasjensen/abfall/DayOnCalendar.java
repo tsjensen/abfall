@@ -1,38 +1,29 @@
 package com.thomasjensen.abfall;
 
 /**
- * TODO Purpose of this type, in one sentence, ending with a dot. <p>Further, arbitrarily elaborate description. HTML
- * allowed.
- *
- * @author Thomas Jensen
+ * Identifies a day in the resulting calendar.
  */
-public class Zeitpunkt
-    implements Comparable<Zeitpunkt>
+public class DayOnCalendar
+    implements Comparable<DayOnCalendar>
 {
-    private final int monat;
+    private final int month;
 
-    private final int tag;
+    private final int day;
 
 
 
-    public Zeitpunkt(final int pMonat, final int pTag)
+    public DayOnCalendar(final int pMonat, final int pTag)
     {
-        monat = pMonat;
-        tag = pTag;
+        month = pMonat;
+        day = pTag;
     }
 
 
 
-    public int getMonat()
+    public DayOnCalendar(final Position pPos)
     {
-        return monat;
-    }
-
-
-
-    public int getTag()
-    {
-        return tag;
+        month = pPos.getMonthNumeric1();
+        day = pPos.getDay();
     }
 
 
@@ -47,7 +38,7 @@ public class Zeitpunkt
             return false;
         }
 
-        Zeitpunkt termin = (Zeitpunkt) pOther;
+        DayOnCalendar termin = (DayOnCalendar) pOther;
         return compareTo(termin) == 0;
     }
 
@@ -56,27 +47,27 @@ public class Zeitpunkt
     @Override
     public int hashCode()
     {
-        int result = monat;
-        result = 31 * result + tag;
+        int result = month;
+        result = 31 * result + day;
         return result;
     }
 
 
 
     @Override
-    public int compareTo(final Zeitpunkt pOther)
+    public int compareTo(final DayOnCalendar pOther)
     {
         int result = 0;
-        if (monat > pOther.monat) {
+        if (month > pOther.month) {
             result = 1;
         }
-        else if (monat < pOther.monat) {
+        else if (month < pOther.month) {
             result = -1;
         }
-        else if (tag > pOther.tag) {
+        else if (day > pOther.day) {
             result = 1;
         }
-        else if (tag < pOther.tag) {
+        else if (day < pOther.day) {
             result = -1;
         }
         return result;
@@ -89,15 +80,15 @@ public class Zeitpunkt
     {
         StringBuilder sb = new StringBuilder();
         sb.append('{');
-        if (tag < 10) {
+        if (day < 10) {
             sb.append('0');
         }
-        sb.append(tag);
+        sb.append(day);
         sb.append('.');
-        if (monat < 10) {
+        if (month < 10) {
             sb.append('0');
         }
-        sb.append(monat);
+        sb.append(month);
         sb.append('}');
         return sb.toString();
     }

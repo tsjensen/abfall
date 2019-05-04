@@ -22,25 +22,25 @@ public class CmdLine
 {
     private Options createOptions()
     {
-        Option help = new Option("h", "help", false, "Diesen Text anzeigen");
+        Option help = new Option("h", "help", false, "Print this message");
 
-        Option year = Option.builder("j")
-            .longOpt("jahr")
-            .hasArg().argName("Jahr").type(PatternOptionBuilder.NUMBER_VALUE)
-            .desc("Das vierstellige Jahr, für das der Abfallkalender erstellt wird")
+        Option year = Option.builder("y")
+            .longOpt("year")
+            .hasArg().argName("year").type(PatternOptionBuilder.NUMBER_VALUE)
+            .desc("(required) The four-digit year for which the summary is being created")
             .required()
             .build();
 
         Option locale = Option.builder("l")
             .longOpt("locale")
             .hasArg().argName("code").type(PatternOptionBuilder.STRING_VALUE)
-            .desc("Ländercode für die Datumswerte (keine vollständige Übersetzung; default: de)")
+            .desc("Locale for printing date information (not a real translation; default: de)")
             .build();
 
         Option outFile = Option.builder("o")
             .longOpt("output")
             .hasArg().argName("xls").type(PatternOptionBuilder.FILE_VALUE)
-            .desc("Name der erzeugten Excel-Datei (Ausgabe-Datei)")
+            .desc("Name of the Excel file to create (output file)")
             .build();
 
         Options result = new Options();
@@ -78,12 +78,12 @@ public class CmdLine
                 return null;
             }
 
-            if (cmd.hasOption('j')) {
-                Long j = (Long) cmd.getParsedOptionValue("j");
+            if (cmd.hasOption('y')) {
+                Long j = (Long) cmd.getParsedOptionValue("y");
                 if (j != null) {
                     year = j.intValue();
                     if (year < 2000) {
-                        throw new ParseException("Jahr zu klein. Muss vierstellig sein: " + year);
+                        throw new ParseException("Year too small. Must be 4 digits: " + year);
                     }
                 }
             }
@@ -92,7 +92,7 @@ public class CmdLine
                 String s = cmd.getOptionValue('l');
                 locale = new Locale(s);
                 if (!Arrays.asList(Locale.getAvailableLocales()).contains(locale)) {
-                    throw new ParseException("Unbekanntes locale: " + s);
+                    throw new ParseException("Unknown locale: " + s);
                 }
             }
 
@@ -105,10 +105,10 @@ public class CmdLine
 
             final List<String> args = cmd.getArgList();
             if (args.size() > 1) {
-                throw new ParseException("Zu viele Argumente angegeben");
+                throw new ParseException("Too many command line arguments");
             }
             if (args.size() < 1) {
-                throw new ParseException("Eingabe-Datei wurde nicht angegeben");
+                throw new ParseException("Input file not specified");
             }
             inFile = new File(args.get(0));
         }
@@ -132,7 +132,8 @@ public class CmdLine
         HelpFormatter formatter = new HelpFormatter();
         final int textWidthChars = 100;
         formatter.setWidth(textWidthChars);
-        System.out.println("Abfallkalender v1.0.0 - Abholtermine auf 1 A4-Seite zusammengefasst");  // TODO app name
-        formatter.printHelp("java -jar TODO.jar [options] <icsDatei>", pOptions);  // TODO
+        System.out.println("abfall - summarize all trash collection dates of the year on one page");
+        formatter.printHelp("abfall [options] <icsDatei>", pOptions);
+        System.out.println();
     }
 }

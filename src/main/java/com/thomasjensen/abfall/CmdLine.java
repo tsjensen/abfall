@@ -12,6 +12,7 @@
 package com.thomasjensen.abfall;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -24,6 +25,10 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PatternOptionBuilder;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.io.IoBuilder;
 
 
 /**
@@ -31,6 +36,10 @@ import org.apache.commons.cli.PatternOptionBuilder;
  */
 public class CmdLine
 {
+    private static final Logger LOG = LogManager.getLogger(CmdLine.class);
+
+
+
     private Options createOptions()
     {
         Option help = new Option("h", "help", false, "Print this message");
@@ -124,13 +133,12 @@ public class CmdLine
             inFile = new File(args.get(0));
         }
         catch (ParseException e) {
-            System.err.println(e.getMessage());
+            LOG.error(e.getMessage());
             usage(opts);
             return null;
         }
         catch (RuntimeException e) {
-            System.err.println(e.getMessage());
-            e.printStackTrace(System.err);
+            LOG.error(e.getMessage(), e);
         }
 
         return new Config(year, locale, inFile, outFile);
@@ -142,9 +150,10 @@ public class CmdLine
     {
         HelpFormatter formatter = new HelpFormatter();
         final int textWidthChars = 100;
-        formatter.setWidth(textWidthChars);
-        System.out.println("abfall - summarize all trash collection dates of the year on one page");
-        formatter.printHelp("abfall [options] <icsDatei>", pOptions);
-        System.out.println();
+        try (PrintWriter pw = IoBuilder.forLogger(LOG).setAutoFlush(true).setLevel(Level.INFO).buildPrintWriter()) {
+            formatter.printHelp(pw, textWidthChars, "abfall [options] <icsFile>", null, pOptions,
+                HelpFormatter.DEFAULT_LEFT_PAD, HelpFormatter.DEFAULT_DESC_PAD, null);
+        }
+        LOG.info("");
     }
 }

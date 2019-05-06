@@ -31,11 +31,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-// TODO license
-// TODO dependency updates
-// TODO readme
-
-
 
 public class Main
 {
@@ -72,10 +67,10 @@ public class Main
     private void printLicenseHeader()
     {
         LOG.info("abfall - convert ICS format trash calendar into a single Excel sheet");
-        LOG.info("Copyright (C) 2011-2019 Thomas Jensen");
+        LOG.info("Copyright (C) 2011-2019 Thomas Jensen, https://github.com/tsjensen/abfall");
         LOG.info("This program comes with ABSOLUTELY NO WARRANTY; see LICENSE.md for details.");
         LOG.info("This is free software, and you are welcome to redistribute it under certain conditions; "
-            + "see LICENSE.md for details.");
+            + "see LICENSE.md for details.\n");
     }
 
 

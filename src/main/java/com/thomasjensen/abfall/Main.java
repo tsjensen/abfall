@@ -1,3 +1,14 @@
+/*
+ * abfall - convert ICS format trash calendar into a single Excel sheet
+ * Copyright (C) 2011-2019 Thomas Jensen
+ *
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
+ * License, version 3, as published by the Free Software Foundation.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with this program. If not, see
+ * <https://www.gnu.org/licenses/>.
+ */
 package com.thomasjensen.abfall;
 
 import java.io.FileOutputStream;
@@ -43,6 +54,7 @@ public class Main
     public void entrypoint(final String[] pArgs)
         throws IOException
     {
+        printLicenseHeader();
         final Config config = new CmdLine().parse(pArgs);
         if (config == null) {
             System.exit(0);
@@ -53,6 +65,17 @@ public class Main
         final XSSFWorkbook workbook = new ExcelCreator(config).create(termine);
 
         writeWorkbook(workbook, config);
+    }
+
+
+
+    private void printLicenseHeader()
+    {
+        LOG.info("abfall - convert ICS format trash calendar into a single Excel sheet");
+        LOG.info("Copyright (C) 2011-2019 Thomas Jensen");
+        LOG.info("This program comes with ABSOLUTELY NO WARRANTY; see LICENSE.md for details.");
+        LOG.info("This is free software, and you are welcome to redistribute it under certain conditions; "
+            + "see LICENSE.md for details.");
     }
 
 

@@ -11,6 +11,8 @@
  */
 package com.thomasjensen.abfall;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
 import java.util.Calendar;
@@ -22,6 +24,9 @@ import org.apache.poi.ooxml.POIXMLProperties;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
+import org.apache.poi.xssf.usermodel.XSSFDrawing;
+import org.apache.poi.xssf.usermodel.XSSFPicture;
 import org.apache.poi.xssf.usermodel.XSSFPrintSetup;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -78,6 +83,7 @@ public class ExcelCreator
 
         mergeMonthNames();
         addNotices();
+        addQrCode();
         setPrintSetup();
         setWorkbookProperties();
 
@@ -205,7 +211,30 @@ public class ExcelCreator
         excelCell.setCellValue("ab 1.1.2019 abgeschafft");
         excelCell.setCellStyle(cellStyleFactory.noteSmall());
 
-        sheet.createRow(xlRowNum);    // for inclusion in print area, and extra notes
+        sheet.createRow(xlRowNum++);  // for inclusion in print area, and extra notes
+        sheet.createRow(xlRowNum);
+    }
+
+
+
+    private void addQrCode()
+    {
+        int pictureIndex;
+        try (final InputStream fis = getClass().getResourceAsStream("qrcode.png")) {
+            pictureIndex = workbook.addPicture(fis, XSSFWorkbook.PICTURE_TYPE_PNG);
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+
+        final int logoSizeRows = 3;
+        final int logoRow = xlRowNum + 1 - logoSizeRows;
+        final XSSFClientAnchor anchor = new XSSFClientAnchor(0, 0, 0, 0, 30, logoRow, 32, logoRow + logoSizeRows);
+        anchor.setAnchorType(XSSFClientAnchor.AnchorType.DONT_MOVE_AND_RESIZE);
+
+        final XSSFDrawing drawing = sheet.createDrawingPatriarch();
+        final XSSFPicture picture = drawing.createPicture(anchor, pictureIndex);
+        picture.resize(0.88d, 1);
     }
 
 

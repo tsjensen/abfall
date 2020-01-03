@@ -24,12 +24,13 @@ https://github.com/tsjensen/abfall/releases
 
 In order to run the program, you need:
  
-- Java 8 or newer ([download](https://adoptopenjdk.net/))
+- Java 8 or newer ([download](https://adoptopenjdk.net/releases.html?variant=openjdk8)) - A JRE is sufficient, unless
+  you want to develop it (see below).
 - The `JAVA_HOME` environment variable points to your Java. This normally means it is set to a value similar to
   `C:\PROGRA~1\Java\jdk8u202-b08` (on Windows).
 - The downloaded program unzipped to a directory somewhere.
 
-Then `cd` into the directory where you unpacked the program and call it like so:
+Change into the directory where you unpacked the program, then:
 
     bin\abfall -y 2019 my-downloaded.ics
 
@@ -51,23 +52,21 @@ The `--locale` option will only affect the month and weekday names, it is not a 
 When a garbage collection date falls onto a public holiday, the weekday name will appear underlined. This is to
 signify that it is unlikely that they will be able to actually come on that day.
 
-Holidays are configured in a property file. They are specific to a particular year, so they may not fit. I will update
-to the current year when I use the program for myself.
+Holidays are configured in a
+[property file](https://github.com/tsjensen/abfall/blob/2020.1/src/main/resources/com/thomasjensen/abfall/feiertage.properties).
+They are specific to a particular year, so they may not fit. I will update to the current year when I use the program
+for myself.
 
 
 ## Development
 
-Same prereqs as for running it, plus [Git](https://git-scm.com/downloads).
+Same prereqs as for running it, but make sure you have a JDK, plus [Git](https://git-scm.com/downloads).
 
-Once cloned, `cd` into the repo and
-
+    git clone https://github.com/tsjensen/abfall.git
+    cd abfall
     .\gradlew build
 
-In order to get an unpacked distribution, call
-
-    .\gradlew installDist
-
-which will get you an unpacked distribution at *build/distributions/unpacked*.
+The unpacked distribution will be created in *build/distributions/unpacked*.
 
 
 ## Status

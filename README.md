@@ -32,7 +32,7 @@ In order to run the program, you need:
 
 Change into the directory where you unpacked the program, then:
 
-    bin\abfall -y 2019 my-downloaded.ics
+    bin\abfall -y 2020 my-downloaded.ics
 
 and it will generate the `.xlsx` file.
 

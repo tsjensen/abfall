@@ -74,6 +74,20 @@ public class CmdLine
 
 
 
+    private boolean hasHelp(final String[] pRawArgs)
+    {
+        boolean result = false;
+        for (String rawArg : pRawArgs) {
+            if (rawArg.equals("-h") || rawArg.equals("--help")) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+
+
     /**
      * Parse and validate the given command line arguments.
      *
@@ -84,6 +98,11 @@ public class CmdLine
     {
         Options opts = createOptions();
 
+        if (hasHelp(pArgs)) {
+            usage(opts);
+            return null;
+        }
+
         int year = -1;
         Locale locale = Locale.GERMAN;
         File inFile = null;
@@ -93,10 +112,6 @@ public class CmdLine
 
         try {
             CommandLine cmd = parser.parse(opts, pArgs);
-            if (cmd.hasOption('h')) {
-                usage(opts);
-                return null;
-            }
 
             if (cmd.hasOption('y')) {
                 Long j = (Long) cmd.getParsedOptionValue("y");

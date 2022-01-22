@@ -1,6 +1,6 @@
 /*
  * abfall - convert ICS format trash calendar into a single Excel sheet
- * Copyright (C) 2011-2021 Thomas Jensen
+ * Copyright (C) 2011-2022 Thomas Jensen
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
  * License, version 3, as published by the Free Software Foundation.
@@ -67,7 +67,7 @@ public class Main
     private void printLicenseHeader()
     {
         LOG.info("abfall - convert ICS format trash calendar into a single Excel sheet");
-        LOG.info("Copyright (C) 2011-2021 Thomas Jensen, https://github.com/tsjensen/abfall");
+        LOG.info("Copyright (C) 2011-2022 Thomas Jensen, https://github.com/tsjensen/abfall");
         LOG.info("This program comes with ABSOLUTELY NO WARRANTY; see LICENSE.md for details.");
         LOG.info("This is free software, and you are welcome to redistribute it under certain conditions; "
             + "see LICENSE.md for details.\n");

@@ -33,9 +33,11 @@ dependencies {
 mainClassName = 'com.thomasjensen.abfall.Main'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
 }
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
     options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation' << '-proc:none'
 }
@@ -45,6 +47,10 @@ idea.module {
     downloadJavadoc = true;
     excludeDirs += file('.idea')
     excludeDirs += file('_support')
+}
+idea.project {
+    jdkName = JavaVersion.VERSION_1_8
+    languageLevel = JavaVersion.VERSION_1_8
 }
 
 jar {
@@ -59,7 +65,7 @@ distributions {
         }
     }
 }
-tasks.installDist {
+tasks.named('installDist').configure {
     destinationDir = new File(buildDir, 'distributions/unpacked')
 }
-tasks.build.dependsOn tasks.installDist
+tasks.named('build').configure { it.dependsOn tasks.installDist }

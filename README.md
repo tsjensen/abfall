@@ -24,7 +24,7 @@ https://github.com/tsjensen/abfall/releases
 
 In order to run the program, you need:
  
-- Java 8 or newer ([download](https://adoptopenjdk.net/releases.html?variant=openjdk8)) - A JRE is sufficient, unless
+- Java 8 or newer ([download](https://adoptium.net/temurin/releases/?version=8)) - A JRE is sufficient, unless
   you want to develop it (see below).
 - The `JAVA_HOME` environment variable points to your Java. This normally means it is set to a value similar to
   `C:\PROGRA~1\Java\jdk8u202-b08` (on Windows).
@@ -32,7 +32,7 @@ In order to run the program, you need:
 
 Change into the directory where you unpacked the program, then:
 
-    bin\abfall -y 2022 my-downloaded.ics
+    bin\abfall -y 2023 my-downloaded.ics
 
 and it will generate the `.xlsx` file.
 
@@ -53,7 +53,7 @@ When a garbage collection date falls onto a public holiday, the weekday name wil
 signify that it is unlikely that they will be able to actually come on that day.
 
 Holidays are configured in a
-[property file](https://github.com/tsjensen/abfall/blob/2022.1/src/main/resources/com/thomasjensen/abfall/feiertage.properties).
+[property file](https://github.com/tsjensen/abfall/blob/2023.1/src/main/resources/com/thomasjensen/abfall/feiertage.properties).
 They are specific to a particular year, so they may not fit. I will update to the current year when I use the program
 for myself.
 
@@ -79,4 +79,4 @@ so your mileage may vary. Do let me know about any quirks, though.
 ## License
 
 The program is free software under the terms of the
-[GNU General Public License, version 3](https://www.gnu.org/licenses/gpl-3.0-standalone.html).
+[GNU General Public License, version 3](LICENSE.md).

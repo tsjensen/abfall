@@ -3,9 +3,10 @@
 Converts the ICS download of garbage collection dates into a single A4-sized Excel file for printing.
 Useful in some parts of Germany.
 
-The ICS download is available from [https://*YOURCITY*.mein-abfallkalender.de/](https://YOURCITY.mein-abfallkalender.de/),
-where *YOURCITY* must be replaced with, you guessed it, your city. Not all communities in Germany are listed, but
-if yours is missing, you can register for a notification as soon as it gets added.
+The ICS download is available from
+[https://*YOURCITY*.mein-abfallkalender.online/](https://YOURCITY.mein-abfallkalender.online/), where *YOURCITY* must
+be replaced with, you guessed it, your city. Not all communities in Germany are listed, but if yours is missing, you
+can register for a notification as soon as it gets added.
 
 The result of the conversion looks something like this:
 
@@ -32,7 +33,7 @@ In order to run the program, you need:
 
 Change into the directory where you unpacked the program, then:
 
-    bin\abfall -y 2023 my-downloaded.ics
+    bin\abfall -y 2024 my-downloaded.ics
 
 and it will generate the `.xlsx` file.
 
@@ -53,7 +54,7 @@ When a garbage collection date falls onto a public holiday, the weekday name wil
 signify that it is unlikely that they will be able to actually come on that day.
 
 Holidays are configured in a
-[property file](https://github.com/tsjensen/abfall/blob/2023.1/src/main/resources/com/thomasjensen/abfall/feiertage.properties).
+[property file](https://github.com/tsjensen/abfall/blob/2024.1/src/main/resources/com/thomasjensen/abfall/feiertage.properties).
 They are specific to a particular year, so they may not fit. I will update to the current year when I use the program
 for myself.
 

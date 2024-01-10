@@ -30,7 +30,9 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-iostreams:2.19.0'
 }
 
-mainClassName = 'com.thomasjensen.abfall.Main'
+application {
+    mainClass = 'com.thomasjensen.abfall.Main'
+}
 
 java {
     toolchain {

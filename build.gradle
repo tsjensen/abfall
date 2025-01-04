@@ -69,6 +69,6 @@ distributions {
     }
 }
 tasks.named('installDist').configure {
-    destinationDir = new File(buildDir, 'distributions/unpacked')
+    destinationDir = layout.buildDirectory.dir('distributions/unpacked').get().getAsFile()
 }
 tasks.named('build').configure { it.dependsOn tasks.installDist }

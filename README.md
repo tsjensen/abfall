@@ -25,10 +25,10 @@ https://github.com/tsjensen/abfall/releases
 
 In order to run the program, you need:
  
-- Java 8 or newer ([download](https://adoptium.net/temurin/releases/?version=8)) - A JRE is sufficient, unless
+- Java 17 or newer ([download](https://adoptium.net/temurin/releases/?version=17)) - A JRE is sufficient, unless
   you want to develop it (see below).
 - The `JAVA_HOME` environment variable points to your Java. This normally means it is set to a value similar to
-  `C:\PROGRA~1\Java\jdk8u202-b08` (on Windows).
+  `C:\PROGRA~1\Java\jdk-17.0.5+8` (on Windows).
 - The downloaded program unzipped to a directory somewhere.
 
 Change into the directory where you unpacked the program, then:

@@ -33,7 +33,7 @@ In order to run the program, you need:
 
 Change into the directory where you unpacked the program, then:
 
-    bin\abfall -y 2024 my-downloaded.ics
+    bin\abfall -y 2025 my-downloaded.ics
 
 and it will generate the `.xlsx` file.
 
@@ -54,7 +54,7 @@ When a garbage collection date falls onto a public holiday, the weekday name wil
 signify that it is unlikely that they will be able to actually come on that day.
 
 Holidays are configured in a
-[property file](https://github.com/tsjensen/abfall/blob/2024.1/src/main/resources/com/thomasjensen/abfall/feiertage.properties).
+[property file](https://github.com/tsjensen/abfall/blob/2025.1/src/main/resources/com/thomasjensen/abfall/feiertage.properties).
 They are specific to a particular year, so they may not fit. I will update to the current year when I use the program
 for myself.
 

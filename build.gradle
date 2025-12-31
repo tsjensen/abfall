@@ -56,7 +56,7 @@ idea.project {
     languageLevel = JavaVersion.VERSION_17
 }
 
-jar {
+tasks.named('jar').configure {
     into('META-INF/') {
         from 'LICENSE.md'
     }

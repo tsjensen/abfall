@@ -80,4 +80,4 @@ so your mileage may vary. Do let me know about any quirks, though.
 ## License
 
 The program is free software under the terms of the
-[GNU General Public License, version 3](LICENSE.md).
+[GNU General Public License, version 3](LICENSE.md) (SPDX-License-Identifier: `GPL-3.0-only`).
